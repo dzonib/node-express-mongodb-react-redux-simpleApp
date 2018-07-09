@@ -1,0 +1,30 @@
+{
+  "name": "rest-crud-node-express-mongo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dzonib/rest-crud-node-express-mongo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dzonib/rest-crud-node-express-mongo/issues"
+  },
+  "homepage": "https://github.com/dzonib/rest-crud-node-express-mongo#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "concurrently": "^3.6.0",
+    "express": "^4.16.3",
+    "mongoose": "^5.2.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.5"
+  }
+}
