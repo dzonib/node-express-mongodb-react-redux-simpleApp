@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { CSSTransition, TransitionGroup} from 'react-transition-group';
-import uuid from 'uuid';
 import {connect} from 'react-redux';
 import {getItems, deleteItem, addItem} from '../actions/itemActions';
 import PropTypes from 'prop-types';
@@ -9,11 +8,10 @@ import PropTypes from 'prop-types';
 class ShopingList extends Component {
  
   state = {
-    name: 'asd'
+    name: ''
   }
 
   componentDidMount() {
-    console.log(this.props)
     this.props.getItems();
   }
 
@@ -21,33 +19,36 @@ class ShopingList extends Component {
     this.props.deleteItem(id)
   } 
 
-  addItemHandler = () => {
-
+  addItemHandler = async () => {
+      const nejm = await prompt('name');
+      await this.setState({name: nejm})
+      await this.props.addItem({name: this.state.name})
   }
 
   render() {
-    console.log(this.props)
     const {items} = this.props.item
+
+    if (this.props.item.loading) {
+      return (
+        <div>
+          SPINNER.....
+        </div>
+      )
+    }
 
     return (
       <Container>
-        <Button color="dark" style={{marginBottom: "2rem"}} onClick={ async () => {
-          const nejm = await prompt('name');
-          await this.setState({name: nejm})
-          await this.props.addItem({name: this.state.name})
-
-        
-        }}>Add Item</Button>
+        <Button color="dark" style={{marginBottom: "2rem"}} onClick={this.addItemHandler}>Add Item</Button>
         <ListGroup>
           <TransitionGroup className="shopping-list">
-            {items.map(({id, name}) => (
-              <CSSTransition key={id} timeout={500} classNames="fade">
+            {items.map(({_id, name}) => (
+              <CSSTransition key={_id} timeout={0} classNames="fade">
                 <ListGroupItem>
                 <Button
                   className="remove-btn"
                   color="danger"
                   size="sm"
-                  onClick={() => this.handleRemove(id)}
+                  onClick={() => this.handleRemove(_id)}
                 >&times;</Button>
                   {name}
                 </ListGroupItem>
