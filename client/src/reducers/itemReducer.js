@@ -14,7 +14,6 @@ export default (state = initialState, action) => {
         loading: false
       };
     case DELETE_ITEM:
-    console.log(action)
       return {
         ...state,
         items: state.items.filter(item => item._id !== action.id)

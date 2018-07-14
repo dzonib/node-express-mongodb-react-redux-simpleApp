@@ -20,9 +20,12 @@ class ShopingList extends Component {
   } 
 
   addItemHandler = async () => {
-      const nejm = await prompt('name');
-      await this.setState({name: nejm})
       await this.props.addItem({name: this.state.name})
+      this.setState({name: ''})
+  }
+
+  handleInputChange = e => {
+    this.setState({name: e.target.value})
   }
 
   render() {
@@ -38,7 +41,9 @@ class ShopingList extends Component {
 
     return (
       <Container>
-        <Button color="dark" style={{marginBottom: "2rem"}} onClick={this.addItemHandler}>Add Item</Button>
+        <input type="text" value={this.state.name} autoComplete="off" onChange={this.handleInputChange} name="name"/>
+        <Button color="dark" onClick={this.addItemHandler}>Add Item</Button>
+      
         <ListGroup>
           <TransitionGroup className="shopping-list">
             {items.map(({_id, name}) => (
